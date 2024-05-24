@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include "color.h"
 int main() {
 
 	int image_width = 256;
@@ -11,15 +11,12 @@ int main() {
 		fprintf(stderr, "\rScanlines remaining: %d", image_height -1);
 		fflush(stderr);
 		for (int j = 0; j < image_width; j++) {
-			double r = (double) j / (image_width -1);
-			double g = (double) i / (image_height -1);
-			double b = 0.0;
-
-			int ir = (int) 255.999 * r;
-			int ig = (int) 255.999 * g;
-			int ib = (int) 255.999 * b;
-
-			printf("%d %d %d\n", ir, ig, ib);
+			color c = {
+				.x = (double) j / (image_width - 1),
+				.y = (double) i / (image_height -1),
+				.z = 0.0
+			};
+			write_color(stdout, c);
 		}
 	}
 
