@@ -16,7 +16,7 @@ void write_color(FILE* f, color c) {
 	int gbyte = (int) 255.999 * g;
 	int bbyte = (int) 255.999 * b;
 
-	printf("%d %d %d\n", rbyte, gbyte, bbyte);
+	fprintf(f, "%d %d %d\n", rbyte, gbyte, bbyte);
 }
 
 #endif
