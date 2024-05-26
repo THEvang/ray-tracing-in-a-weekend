@@ -46,4 +46,8 @@ vec3 vec3_normalize(vec3 v) {
 	return vec3_mult(v, 1.0 / vec3_length(v));
 }
 
+double vec3_dot(vec3 a, vec3 b) {
+	return a.x * b.x + a.y * b.y + a.z * b.z;	
+}
+
 #endif
