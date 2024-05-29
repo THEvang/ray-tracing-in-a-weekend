@@ -3,20 +3,28 @@
 #include "ray.h"
 #include <stdbool.h>
 
-bool hit_sphere(vec3 center, double radius, ray r) {
+double hit_sphere(vec3 center, double radius, ray r) {
 	vec3 oc = vec3_sub(center, r.orig);
 	double a = vec3_dot(r.dir, r.dir);
 	double b = -2.0 * vec3_dot(r.dir, oc);
 	double c = vec3_dot(oc, oc) - radius * radius;
 	double discriminant = b * b - 4.0 * a * c;
 
-	return discriminant >= 0;
+	if (discriminant < 0) {
+		return -1.0;
+	} else {
+		return	(-b - sqrt(discriminant)) / (2.0 * a);
+	}
 }
 
 color ray_color(ray r) {
-	
-	if (hit_sphere((vec3) {0, 0, -1}, 0.5, r)) {
-		return (color) {1, 0, 0};
+
+	double t = hit_sphere((vec3) {0, 0, -1}, 0.5, r);
+	if (t >= 0) {
+
+		vec3 N = vec3_sub(ray_at(r, t), (vec3){0,0,-1});
+		N = vec3_normalize(N);
+		return vec3_mult((color) {N.x + 1.0, N.y + 1.0, N.z + 1.0}, 0.5); 
 	}
 
 	vec3 unit_direction = vec3_normalize(r.dir);
@@ -36,7 +44,7 @@ int main() {
 
 	//Camera
 	double focal_length = 1.0;
-	double viewport_height = 2.0;
+	double viewport_height = 2;
 	double viewport_width = viewport_height * (((double)image_width / image_height));
 	vec3 camera_center = {0,0,0};
 
