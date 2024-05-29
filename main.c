@@ -6,14 +6,14 @@
 double hit_sphere(vec3 center, double radius, ray r) {
 	vec3 oc = vec3_sub(center, r.orig);
 	double a = vec3_dot(r.dir, r.dir);
-	double b = -2.0 * vec3_dot(r.dir, oc);
+	double h = vec3_dot(r.dir, oc);
 	double c = vec3_dot(oc, oc) - radius * radius;
-	double discriminant = b * b - 4.0 * a * c;
+	double discriminant = h * h - a * c;
 
 	if (discriminant < 0) {
 		return -1.0;
 	} else {
-		return	(-b - sqrt(discriminant)) / (2.0 * a);
+		return	(h - sqrt(discriminant)) / a;
 	}
 }
 
