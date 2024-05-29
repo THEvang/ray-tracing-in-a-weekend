@@ -12,7 +12,8 @@ typedef struct vec3 {
 			double z;
 		};
 	};
-} vec3;
+} vec3, point3;
+
 
 vec3 vec3_add(vec3 a, vec3 b) {
 	return (vec3) {
